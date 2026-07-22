@@ -1,0 +1,34 @@
+name: Scan horaire
+
+"on":
+  schedule:
+    # Toutes les heures, à la minute 0. GitHub Actions ne garantit pas une
+    # exécution pile à l'heure (délai possible en cas de forte charge sur
+    # l'infra GitHub), mais l'espacement d'une heure entre deux runs est
+    # respecté.
+    - cron: '0 * * * *'
+  # Permet aussi un déclenchement manuel depuis l'onglet Actions, pratique
+  # pour tester sans attendre la prochaine heure pile.
+  workflow_dispatch: {}
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15 # bien en dessous des 6h max — un run bloqué doit s'arrêter vite, pas traîner jusqu'au run suivant
+
+    steps:
+      - name: Récupération du code
+        uses: actions/checkout@v4
+
+      - name: Installation de PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, json
+          coverage: none
+
+      - name: Lancement du scan
+        env:
+          OGPN_API_URL: ${{ secrets.OGPN_API_URL }}
+          OGPN_API_TOKEN: ${{ secrets.OGPN_API_TOKEN }}
+        run: php bin/scan.php
