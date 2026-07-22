@@ -1,0 +1,13 @@
+# Interdit tout accès web direct à ce dossier — il contient le jeton API et
+# les données de scan, qui ne doivent jamais être servis comme fichiers
+# statiques par le serveur.
+
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    # Ancienne syntaxe Apache (2.2), au cas où — Infomaniak est en 2.4 mais
+    # on reste défensif si jamais l'hébergement change un jour.
+    Order deny,allow
+    Deny from all
+</IfModule>
