@@ -136,7 +136,7 @@ class Http
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS => 3,
             CURLOPT_CONNECTTIMEOUT => self::CONNECT_TIMEOUT_S,
-            CURLOPT_TIMEOUT => self::TOTAL_TIMEOUT_S,
+            CURLOPT_TIMEOUT => $spec->timeoutSeconds ?? self::TOTAL_TIMEOUT_S,
             CURLOPT_USERAGENT => self::USER_AGENT,
             CURLOPT_ENCODING => '', // accepte gzip/deflate automatiquement
             CURLOPT_HTTPHEADER => $headerLines,
