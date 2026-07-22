@@ -27,7 +27,7 @@ final class Queue
      */
     public function fetchNextBatch(int $limit): array
     {
-        $url = rtrim($this->apiBaseUrl, '/') . '/scan-queue?limit=' . $limit;
+        $url = rtrim($this->apiBaseUrl, '/') . '/scan-queue.php?limit=' . $limit;
         $spec = (new RequestSpec($url))->withHeader('Authorization', 'Bearer ' . $this->apiToken);
 
         $results = $this->http->fetchBatch([
@@ -71,7 +71,7 @@ final class Queue
             throw new \RuntimeException('Impossible de sérialiser les résultats en JSON.');
         }
 
-        $url = rtrim($this->apiBaseUrl, '/') . '/scan-ingest';
+        $url = rtrim($this->apiBaseUrl, '/') . '/scan-ingest.php';
         $spec = (new RequestSpec($url))
             ->withJsonBody($body)
             ->withHeader('Authorization', 'Bearer ' . $this->apiToken);
