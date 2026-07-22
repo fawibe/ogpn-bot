@@ -20,6 +20,7 @@ final class Http
 {
     /** User-Agent transparent, avec contact — jamais de mimétisme navigateur. */
     public const USER_AGENT = 'OgpnBot/1.0 (+https://ogpn.eu/bot; contact@ogpn.eu)';
+    public const USER_AGENT_TOKEN = 'OgpnBot';
 
     /** Nombre d'octets suffisant pour couvrir le <head> de quasi toutes les pages. */
     public const HTML_HEAD_RANGE_BYTES = 16384;
