@@ -16,7 +16,7 @@ namespace OgpnBot;
  *    en parallèle volontairement plafonné, pour rester raisonnable sur un hébergement
  *    mutualisé (ou un runner CI partagé) plutôt que de viser la vitesse brute.
  */
-final class Http
+class Http
 {
     /** User-Agent transparent, avec contact — jamais de mimétisme navigateur. */
     public const USER_AGENT = 'OgpnBot/1.0 (+https://ogpn.eu/bot; contact@ogpn.eu)';
