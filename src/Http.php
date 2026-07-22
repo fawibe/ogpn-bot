@@ -20,6 +20,8 @@ final class Http
 {
     /** User-Agent transparent, avec contact — jamais de mimétisme navigateur. */
     public const USER_AGENT = 'OgpnBot/1.0 (+https://ogpn.eu/bot; contact@ogpn.eu)';
+
+    /** Simple nom du bot, tel qu'il doit apparaître dans les lignes "User-agent:" de robots.txt. */
     public const USER_AGENT_TOKEN = 'OgpnBot';
 
     /** Nombre d'octets suffisant pour couvrir le <head> de quasi toutes les pages. */
@@ -122,21 +124,31 @@ final class Http
     private function buildCurlHandle(RequestSpec $spec): \CurlHandle
     {
         $curlHandle = curl_init($spec->url);
+
+        $headerLines = ['Accept: text/html,application/json,text/plain,*/*'];
+        foreach ($spec->headers as $name => $value) {
+            $headerLines[] = "{$name}: {$value}";
+        }
+
         $options = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
-            CURLOPT_NOBODY => false,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS => 3,
             CURLOPT_CONNECTTIMEOUT => self::CONNECT_TIMEOUT_S,
             CURLOPT_TIMEOUT => self::TOTAL_TIMEOUT_S,
             CURLOPT_USERAGENT => self::USER_AGENT,
             CURLOPT_ENCODING => '', // accepte gzip/deflate automatiquement
-            CURLOPT_HTTPHEADER => ['Accept: text/html,application/json,text/plain,*/*'],
+            CURLOPT_HTTPHEADER => $headerLines,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
         ];
+
+        if ($spec->method === 'POST') {
+            $options[CURLOPT_POST] = true;
+            $options[CURLOPT_POSTFIELDS] = $spec->body ?? '';
+        }
 
         if ($spec->rangeBytes !== null) {
             $options[CURLOPT_RANGE] = '0-' . ($spec->rangeBytes - 1);
