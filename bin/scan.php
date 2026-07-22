@@ -15,7 +15,18 @@ spl_autoload_register(function (string $class): void {
 });
 
 /** Nombre de domaines demandés par run — volontairement prudent, voir notes de conception du projet. */
-const BATCH_SIZE = 75;
+/**
+ * Nombre de domaines demandés par run. Contrairement à Infomaniak (limité à
+ * 1x/heure, contrainte qui avait motivé un chiffre prudent au départ),
+ * GitHub Actions n'a pas cette restriction — la vraie limite est le temps
+ * d'exécution du job (15 min, voir .github/workflows/scan.yml). Calcul du
+ * pire cas avec ce lot : si les 300 domaines étaient tous injoignables
+ * (timeout 4s, 4 en parallèle), ça prendrait ~5 min — large marge sous les
+ * 15 min. Le parallélisme par domaine (Http::MAX_CONCURRENT_DOMAINS) reste
+ * inchangé : chaque site individuel voit la même charge légère qu'avant,
+ * seul le nombre total de domaines traités par run augmente.
+ */
+const BATCH_SIZE = 300;
 
 function fail(string $message): never
 {
