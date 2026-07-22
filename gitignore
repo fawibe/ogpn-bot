@@ -1,0 +1,14 @@
+# Jeton API — jamais sur le repo public
+storage/secrets/
+
+# Données réelles de scan — générées en production, pas du code source
+storage/domains.json
+storage/locks/
+
+# Fichiers temporaires d'écriture atomique (voir lib.php)
+storage/*.tmp.*
+
+# Artefacts PHP courants
+vendor/
+composer.lock
+*.log
