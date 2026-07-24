@@ -1,0 +1,209 @@
+{
+  "_comment": "Socle minimal commun applique a tous les sites, quelle que soit la langue detectee. Il doit rester prudent : expressions internationales ou quasi universelles, indices faibles seulement, jamais une classification fine a lui seul.",
+  "attractions": [
+    "museum",
+    "amusement park",
+    "theme park",
+    "zoo",
+    "aquarium",
+    "visitor attraction",
+    "tickets visit"
+  ],
+  "automotive": [
+    "auto repair",
+    "car dealer",
+    "car dealership",
+    "vehicle service",
+    "EV charging"
+  ],
+  "books_and_literature": [
+    "book publisher",
+    "online bookstore",
+    "bookshop",
+    "author",
+    "literature"
+  ],
+  "business_and_finance": [
+    "business consulting",
+    "corporate services",
+    "b2b",
+    "manufacturer",
+    "wholesale"
+  ],
+  "careers": [
+    "job openings",
+    "career opportunities",
+    "vacancies",
+    "recruitment",
+    "apply now"
+  ],
+  "technology_and_computing": [
+    "software development",
+    "web development",
+    "cybersecurity",
+    "cloud computing",
+    "artificial intelligence",
+    "hosting provider"
+  ],
+  "education": [
+    "training center",
+    "vocational training",
+    "online course",
+    "e-learning",
+    "academy",
+    "certification"
+  ],
+  "entertainment": [
+    "movie theater",
+    "live show",
+    "concert tickets",
+    "streaming platform"
+  ],
+  "events": [
+    "event registration",
+    "event calendar",
+    "conference agenda",
+    "tickets",
+    "summit"
+  ],
+  "family_and_relationships": [
+    "family counseling",
+    "relationship counseling",
+    "parenting workshop",
+    "wedding planner"
+  ],
+  "fine_art": [
+    "art gallery",
+    "art exhibition",
+    "contemporary art",
+    "artist portfolio"
+  ],
+  "food_and_drink": [
+    "restaurant menu",
+    "book a table",
+    "online ordering",
+    "catering service",
+    "food truck",
+    "foodtruck"
+  ],
+  "healthy_living": [
+    "fitness center",
+    "yoga studio",
+    "wellness coaching",
+    "personal trainer"
+  ],
+  "hobbies_and_interests": [
+    "hobby club",
+    "craft workshop",
+    "do it yourself",
+    "board games"
+  ],
+  "home_and_garden": [
+    "fitted kitchen",
+    "kitchen renovation",
+    "home renovation",
+    "garden center",
+    "interior design"
+  ],
+  "medical_health": [
+    "medical appointment",
+    "health clinic",
+    "hospital",
+    "pharmacy",
+    "patient portal"
+  ],
+  "personal_celebrations_and_life_events": [
+    "wedding planner",
+    "birthday party",
+    "baby shower",
+    "graduation"
+  ],
+  "personal_finance": [
+    "personal loan",
+    "mortgage broker",
+    "life insurance",
+    "banking",
+    "credit card"
+  ],
+  "pets": [
+    "veterinary clinic",
+    "pet shop",
+    "dog grooming",
+    "animal shelter"
+  ],
+  "pop_culture": [
+    "pop culture",
+    "fan convention",
+    "celebrity news"
+  ],
+  "real_estate": [
+    "real estate agency",
+    "house for sale",
+    "apartment for rent",
+    "property valuation"
+  ],
+  "religion_and_spirituality": [
+    "place of worship",
+    "spiritual center",
+    "church service"
+  ],
+  "science": [
+    "research institute",
+    "scientific research",
+    "research laboratory"
+  ],
+  "shopping": [
+    "add to cart",
+    "checkout",
+    "online store",
+    "order online",
+    "delivery"
+  ],
+  "sports": [
+    "sports club",
+    "football club",
+    "match schedule",
+    "fitness club"
+  ],
+  "style_and_fashion": [
+    "fashion collection",
+    "hair salon",
+    "beauty salon",
+    "clothing store"
+  ],
+  "travel": [
+    "travel agency",
+    "hotel booking",
+    "tourism office",
+    "book a room"
+  ],
+  "video_gaming": [
+    "video game",
+    "game studio",
+    "gaming tournament",
+    "esports"
+  ],
+  "government": [
+    "public service",
+    "city council",
+    "municipality",
+    "town hall",
+    "official gazette"
+  ],
+  "sensitive_topics": [
+    "explicit sexual content",
+    "adult entertainment",
+    "xxx content"
+  ],
+  "transport_and_logistics": [
+    "public transport",
+    "train tickets",
+    "rail transport",
+    "airline",
+    "airport",
+    "shipping",
+    "freight",
+    "parcel delivery",
+    "logistics"
+  ]
+}

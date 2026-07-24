@@ -1,0 +1,144 @@
+{
+  "_comment": "Catégories Tier 1, style IAB Content Taxonomy 3.0. 'sensitive_topics' est volontairement limitée à la sous-partie Adult & Explicit dans nos dictionnaires — les autres sous-catégories (terrorisme, crime, guerre...) sont trop sujettes aux faux positifs sur des sites d'actualité classiques (voir notes de conception du projet) et ne sont pas détectées par mots-clés. 'last_resort: true' signifie que cette catégorie n'est testée que si aucune autre catégorie neutre n'a matché.",
+  "categories": [
+    {
+      "slug": "attractions",
+      "name_en": "Attractions"
+    },
+    {
+      "slug": "automotive",
+      "name_en": "Automotive"
+    },
+    {
+      "slug": "books_and_literature",
+      "name_en": "Books and Literature"
+    },
+    {
+      "slug": "business_and_finance",
+      "name_en": "Business and Finance"
+    },
+    {
+      "slug": "careers",
+      "name_en": "Careers"
+    },
+    {
+      "slug": "technology_and_computing",
+      "name_en": "Technology & Computing"
+    },
+    {
+      "slug": "education",
+      "name_en": "Education"
+    },
+    {
+      "slug": "entertainment",
+      "name_en": "Entertainment"
+    },
+    {
+      "slug": "events",
+      "name_en": "Events"
+    },
+    {
+      "slug": "family_and_relationships",
+      "name_en": "Family and Relationships"
+    },
+    {
+      "slug": "fine_art",
+      "name_en": "Fine Art"
+    },
+    {
+      "slug": "food_and_drink",
+      "name_en": "Food & Drink"
+    },
+    {
+      "slug": "healthy_living",
+      "name_en": "Healthy Living"
+    },
+    {
+      "slug": "hobbies_and_interests",
+      "name_en": "Hobbies & Interests"
+    },
+    {
+      "slug": "home_and_garden",
+      "name_en": "Home & Garden"
+    },
+    {
+      "slug": "medical_health",
+      "name_en": "Medical Health"
+    },
+    {
+      "slug": "personal_celebrations_and_life_events",
+      "name_en": "Personal Celebrations & Life Events"
+    },
+    {
+      "slug": "personal_finance",
+      "name_en": "Personal Finance"
+    },
+    {
+      "slug": "pets",
+      "name_en": "Pets"
+    },
+    {
+      "slug": "pop_culture",
+      "name_en": "Pop Culture"
+    },
+    {
+      "slug": "real_estate",
+      "name_en": "Real Estate"
+    },
+    {
+      "slug": "religion_and_spirituality",
+      "name_en": "Religion & Spirituality"
+    },
+    {
+      "slug": "science",
+      "name_en": "Science"
+    },
+    {
+      "slug": "shopping",
+      "name_en": "Shopping"
+    },
+    {
+      "slug": "sports",
+      "name_en": "Sports"
+    },
+    {
+      "slug": "style_and_fashion",
+      "name_en": "Style & Fashion"
+    },
+    {
+      "slug": "transport_and_logistics",
+      "name_en": "Transport & Logistics",
+      "iab_official": false
+    },
+    {
+      "slug": "travel",
+      "name_en": "Travel"
+    },
+    {
+      "slug": "video_gaming",
+      "name_en": "Video Gaming"
+    },
+    {
+      "slug": "government",
+      "name_en": "Government",
+      "iab_official": false
+    },
+    {
+      "slug": "sensitive_topics",
+      "name_en": "Sensitive Topics (Adult & Explicit only)",
+      "last_resort": true
+    }
+  ],
+  "not_keyword_detected": {
+    "_comment": "Catégories officielles IAB volontairement absentes des dictionnaires — trop risquées en simple détection par mots-clés (voir notes de conception).",
+    "slugs": [
+      "crime",
+      "disasters",
+      "law",
+      "politics",
+      "war_and_conflicts",
+      "genres",
+      "holidays"
+    ]
+  }
+}

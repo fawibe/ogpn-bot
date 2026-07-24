@@ -1,0 +1,35 @@
+{
+  "_comment": "Périmètre linguistique initial : 24 langues officielles de l'Union européenne. Le français est le dictionnaire canonique travaillé en premier ; les autres langues sont prévues dans la structure et activées progressivement selon traduction/revue et statistiques.",
+  "scope": "eu_official_languages",
+  "languages": [
+    {"code": "bg", "name_fr": "bulgare", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "cs", "name_fr": "tchèque", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "da", "name_fr": "danois", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "de", "name_fr": "allemand", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "el", "name_fr": "grec", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "en", "name_fr": "anglais", "supported": true, "dictionary_ready": true, "statistics_enabled": true, "needs_review": true},
+    {"code": "es", "name_fr": "espagnol", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "et", "name_fr": "estonien", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "fi", "name_fr": "finnois", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "fr", "name_fr": "français", "supported": true, "dictionary_ready": true, "statistics_enabled": true, "needs_review": false},
+    {"code": "ga", "name_fr": "irlandais", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "hr", "name_fr": "croate", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "hu", "name_fr": "hongrois", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "it", "name_fr": "italien", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "lt", "name_fr": "lituanien", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "lv", "name_fr": "letton", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "mt", "name_fr": "maltais", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "nl", "name_fr": "néerlandais", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "pl", "name_fr": "polonais", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "pt", "name_fr": "portugais", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "ro", "name_fr": "roumain", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "sk", "name_fr": "slovaque", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "sl", "name_fr": "slovène", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true},
+    {"code": "sv", "name_fr": "suédois", "supported": true, "dictionary_ready": false, "statistics_enabled": false, "needs_review": true}
+  ],
+  "out_of_scope_by_default": [
+    {"code": "ru", "reason": "hors UE/EEE/AELE et hors Conseil de l'Europe depuis 2022"},
+    {"code": "zh", "reason": "hors périmètre européen"},
+    {"code": "ar", "reason": "hors périmètre européen, sauf ajout ultérieur par volume statistique"}
+  ]
+}
