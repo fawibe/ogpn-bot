@@ -30,7 +30,7 @@ spl_autoload_register(function (string $class): void {
  * Actions après le changement de concurrence ci-dessus, avant de toucher à
  * ce chiffre).
  */
-const BATCH_SIZE = 300;
+const BATCH_SIZE = 600; //300
 
 function fail(string $message): never
 {
