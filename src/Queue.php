@@ -31,7 +31,12 @@ final class Queue
         if ($priorityTlds !== null && $priorityTlds !== '') {
             $url .= '&priority_tld=' . rawurlencode($priorityTlds);
         }
-        $spec = (new RequestSpec($url))->withHeader('Authorization', 'Bearer ' . $this->apiToken);
+        $spec = (new RequestSpec($url))
+            ->withHeader('Authorization', 'Bearer ' . $this->apiToken)
+            // Même raisonnement que submitResults() : notre propre API,
+            // pas un site externe — décodage + tri d'un domains.json qui
+            // grossit peuvent légitimement dépasser les 3s par défaut.
+            ->withTimeout(20);
 
         $results = $this->http->fetchBatch([
             'queue' => ['request' => $spec],
@@ -77,7 +82,14 @@ final class Queue
         $url = rtrim($this->apiBaseUrl, '/') . '/scan-ingest.php';
         $spec = (new RequestSpec($url))
             ->withJsonBody($body)
-            ->withHeader('Authorization', 'Bearer ' . $this->apiToken);
+            ->withHeader('Authorization', 'Bearer ' . $this->apiToken)
+            // Contrairement aux requêtes de scan (délai court volontaire pour
+            // ne jamais laisser un site mort plomber un batch), cet appel
+            // parle à notre propre API de confiance, qui fait une lecture +
+            // fusion + réécriture complète de domains.json (potentiellement
+            // plusieurs milliers d'entrées) + sauvegarde à chaque appel — un
+            // aller-retour légitimement plus long que 3s sur un gros lot.
+            ->withTimeout(60);
 
         $results2 = $this->http->fetchBatch([
             'ingest' => ['request' => $spec],
