@@ -1,0 +1,529 @@
+{
+  "_comment": "Corpus francophone de validation manuelle/automatique du dictionnaire de categories. Chaque entree indique une categorie attendue pour la page d'accueil du domaine. Si robots.txt bloque le scan, remplacer l'exemple plutot que contourner robots.txt.",
+  "language": "fr",
+  "entries": [
+    {
+      "domain": "parcasterix.fr",
+      "expected_category": "attractions",
+      "expected_tier2": "theme_park",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "pairidaiza.eu",
+      "expected_category": "attractions",
+      "expected_tier2": "zoo_aquarium",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "musee-orsay.fr",
+      "expected_category": "attractions",
+      "expected_tier2": "museum_gallery",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "midas.fr",
+      "expected_category": "automotive",
+      "expected_tier2": "auto_repair",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "autoscout24.be",
+      "expected_category": "automotive",
+      "expected_tier2": "car_dealer",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "pneus-online.be",
+      "expected_category": "automotive",
+      "expected_tier2": "tires_parts",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "gallimard.fr",
+      "expected_category": "books_and_literature",
+      "expected_tier2": "publisher",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "librairie-moliere.com",
+      "expected_category": "books_and_literature",
+      "expected_tier2": "bookstore",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "amelienothomb.com",
+      "expected_category": "books_and_literature",
+      "expected_tier2": "author",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "deloitte.com",
+      "expected_category": "business_and_finance",
+      "expected_tier2": "consulting",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "solvay.com",
+      "expected_category": "business_and_finance",
+      "expected_tier2": "manufacturing",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "solucious.be",
+      "expected_category": "business_and_finance",
+      "expected_tier2": "wholesale",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "bpost.be",
+      "expected_category": "transport_and_logistics",
+      "expected_tier2": "freight_logistics",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "stepstone.be",
+      "expected_category": "careers",
+      "expected_tier2": "job_board",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "randstad.be",
+      "expected_category": "careers",
+      "expected_tier2": "recruitment_agency",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "bruxellesformation.brussels",
+      "expected_category": "education",
+      "expected_tier2": "vocational_training",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "uclouvain.be",
+      "expected_category": "education",
+      "expected_tier2": "higher_education",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "openclassrooms.com",
+      "expected_category": "education",
+      "expected_tier2": "online_learning",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "pathe.be",
+      "expected_category": "entertainment",
+      "expected_tier2": "cinema",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "forest-national.be",
+      "expected_category": "entertainment",
+      "expected_tier2": "live_music",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "theatredeliege.be",
+      "expected_category": "entertainment",
+      "expected_tier2": "performing_arts",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "eventbrite.fr",
+      "expected_category": "events",
+      "expected_tier2": "event_registration",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "rockwerchter.be",
+      "expected_category": "events",
+      "expected_tier2": "festival",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "forum-europeen.com",
+      "expected_category": "events",
+      "expected_tier2": "conference",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "yapaka.be",
+      "expected_category": "family_and_relationships",
+      "expected_tier2": "parenting",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "mediation-familiale.be",
+      "expected_category": "family_and_relationships",
+      "expected_tier2": "couple_family_counseling",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "bozar.be",
+      "expected_category": "fine_art",
+      "expected_tier2": "art_exhibition",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "galerieperrotin.com",
+      "expected_category": "fine_art",
+      "expected_tier2": "art_gallery",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "artmajeur.com",
+      "expected_category": "fine_art",
+      "expected_tier2": "artist_portfolio",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "commechezsoi.be",
+      "expected_category": "food_and_drink",
+      "expected_tier2": "restaurant",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "traiteur-paulus.be",
+      "expected_category": "food_and_drink",
+      "expected_tier2": "catering",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "foodtruckbooking.be",
+      "expected_category": "food_and_drink",
+      "expected_tier2": "food_truck",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "colruyt.be",
+      "expected_category": "food_and_drink",
+      "expected_tier2": "grocery",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "basic-fit.com",
+      "expected_category": "healthy_living",
+      "expected_tier2": "fitness",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "yoga-room.be",
+      "expected_category": "healthy_living",
+      "expected_tier2": "yoga_wellness",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "coach-sportif.be",
+      "expected_category": "healthy_living",
+      "expected_tier2": "coaching",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "creacorner.be",
+      "expected_category": "hobbies_and_interests",
+      "expected_tier2": "crafts_diy",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "clubphoto.be",
+      "expected_category": "hobbies_and_interests",
+      "expected_tier2": "hobby_club",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "ixina.be",
+      "expected_category": "home_and_garden",
+      "expected_tier2": "kitchen_design",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "renovation-info-service.gouv.fr",
+      "expected_category": "home_and_garden",
+      "expected_tier2": "renovation",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "jardiland.com",
+      "expected_category": "home_and_garden",
+      "expected_tier2": "garden",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "chirec.be",
+      "expected_category": "medical_health",
+      "expected_tier2": "clinic",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "multipharma.be",
+      "expected_category": "medical_health",
+      "expected_tier2": "pharmacy",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "dentalclinics.be",
+      "expected_category": "medical_health",
+      "expected_tier2": "dentistry",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "mariages.net",
+      "expected_category": "personal_celebrations_and_life_events",
+      "expected_tier2": "wedding",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "anniversaire-enfant.be",
+      "expected_category": "personal_celebrations_and_life_events",
+      "expected_tier2": "birthday_party",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "dreambaby.be",
+      "expected_category": "personal_celebrations_and_life_events",
+      "expected_tier2": "birth_baby",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "keytradebank.be",
+      "expected_category": "personal_finance",
+      "expected_tier2": "mortgage",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "cofidis.be",
+      "expected_category": "personal_finance",
+      "expected_tier2": "loans",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "axa.be",
+      "expected_category": "personal_finance",
+      "expected_tier2": "insurance",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "anicura.be",
+      "expected_category": "pets",
+      "expected_tier2": "veterinary",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "tomandco.com",
+      "expected_category": "pets",
+      "expected_tier2": "pet_store",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "dogwash.be",
+      "expected_category": "pets",
+      "expected_tier2": "grooming",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "parismatch.be",
+      "expected_category": "pop_culture",
+      "expected_tier2": "fan_community",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "manga-news.com",
+      "expected_category": "pop_culture",
+      "expected_tier2": "comics_manga",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "immoweb.be",
+      "expected_category": "real_estate",
+      "expected_tier2": "real_estate_agency",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "immovlan.be",
+      "expected_category": "real_estate",
+      "expected_tier2": "property_rental",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "logic-immo.be",
+      "expected_category": "real_estate",
+      "expected_tier2": "property_sale",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "egliseinfo.be",
+      "expected_category": "religion_and_spirituality",
+      "expected_tier2": "place_of_worship",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "bouddhisme-france.org",
+      "expected_category": "religion_and_spirituality",
+      "expected_tier2": "spiritual_center",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "fnrs.be",
+      "expected_category": "science",
+      "expected_tier2": "research_institute",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "pasteur.fr",
+      "expected_category": "science",
+      "expected_tier2": "laboratory",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "decathlon.be",
+      "expected_category": "shopping",
+      "expected_tier2": "retail_store",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "bol.com",
+      "expected_category": "shopping",
+      "expected_tier2": "ecommerce",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "standard.be",
+      "expected_category": "sports",
+      "expected_tier2": "sports_club",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "keepcool.fr",
+      "expected_category": "sports",
+      "expected_tier2": "fitness_sport",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "karminecorp.fr",
+      "expected_category": "sports",
+      "expected_tier2": "esports",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "jules.com",
+      "expected_category": "style_and_fashion",
+      "expected_tier2": "fashion_retail",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "dessange.com",
+      "expected_category": "style_and_fashion",
+      "expected_tier2": "hair_beauty",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "zalando.fr",
+      "expected_category": "style_and_fashion",
+      "expected_tier2": "clothing",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "approach.be",
+      "expected_category": "technology_and_computing",
+      "expected_tier2": "cybersecurity",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "odoo.com",
+      "expected_category": "technology_and_computing",
+      "expected_tier2": "software_development",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "infomaniak.com",
+      "expected_category": "technology_and_computing",
+      "expected_tier2": "hosting_cloud",
+      "country_hint": "CH"
+    },
+    {
+      "domain": "mistral.ai",
+      "expected_category": "technology_and_computing",
+      "expected_tier2": "artificial_intelligence",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "visit.brussels",
+      "expected_category": "travel",
+      "expected_tier2": "tourism",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "connections.be",
+      "expected_category": "travel",
+      "expected_tier2": "travel_agency",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "accor.com",
+      "expected_category": "travel",
+      "expected_tier2": "hotel",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "fishingcactus.com",
+      "expected_category": "video_gaming",
+      "expected_tier2": "game_studio",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "jeuxvideo.com",
+      "expected_category": "video_gaming",
+      "expected_tier2": "video_game",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "millenium.org",
+      "expected_category": "video_gaming",
+      "expected_tier2": "gaming_community",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "bruxelles.be",
+      "expected_category": "government",
+      "expected_tier2": "municipality",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "economie.fgov.be",
+      "expected_category": "government",
+      "expected_tier2": "ministry",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "diplomatie.belgium.be",
+      "expected_category": "government",
+      "expected_tier2": "embassy_consulate",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "sncf-connect.com",
+      "expected_category": "transport_and_logistics",
+      "expected_tier2": "passenger_rail",
+      "country_hint": "FR"
+    },
+    {
+      "domain": "belgiantrain.be",
+      "expected_category": "transport_and_logistics",
+      "expected_tier2": "passenger_rail",
+      "country_hint": "BE"
+    },
+    {
+      "domain": "cma-cgm.fr",
+      "expected_category": "transport_and_logistics",
+      "expected_tier2": "freight_logistics",
+      "country_hint": "FR"
+    }
+  ],
+  "synthetic_entries": [
+    {
+      "expected_category": "sensitive_topics",
+      "expected_tier2": "adult_explicit",
+      "reason": "Categorie sensible volontairement testee sur fixture locale uniquement, pas sur URL publique dans le corpus."
+    }
+  ]
+}
