@@ -49,8 +49,17 @@ class Http
     private const CONNECT_TIMEOUT_S = 2;
     private const TOTAL_TIMEOUT_S = 3;
 
-    /** Nombre de domaines traités en parallèle simultanément (throttle volontaire). */
-    private const MAX_CONCURRENT_DOMAINS = 4;
+    /**
+     * Nombre de domaines traités en parallèle simultanément (throttle
+     * volontaire). Passé de 4 à 12 pour réduire le temps par lot — un
+     * runner GitHub Actions a largement la bande passante pour ça. À
+     * surveiller après ce changement : si le taux de domaines "injoignable"
+     * augmente sensiblement (voir scan.yml), ça peut vouloir dire que
+     * certains domaines/hébergeurs répondent mal à une charge plus
+     * concurrente et qu'il faut redescendre cette valeur, pas forcément un
+     * souci réseau généralisé.
+     */
+    private const MAX_CONCURRENT_DOMAINS = 12;
 
     /** @var array<int, string> Buffer manuel par handle (spl_object_id => contenu accumulé), voir buildCurlHandle(). */
     private array $buffers = [];

@@ -25,9 +25,12 @@ final class Queue
      * @return string[] Liste de domaines (peut être vide si rien n'est dû).
      * @throws \RuntimeException Si l'appel échoue (réseau ou réponse invalide).
      */
-    public function fetchNextBatch(int $limit): array
+    public function fetchNextBatch(int $limit, ?string $priorityTlds = null): array
     {
         $url = rtrim($this->apiBaseUrl, '/') . '/scan-queue.php?limit=' . $limit;
+        if ($priorityTlds !== null && $priorityTlds !== '') {
+            $url .= '&priority_tld=' . rawurlencode($priorityTlds);
+        }
         $spec = (new RequestSpec($url))->withHeader('Authorization', 'Bearer ' . $this->apiToken);
 
         $results = $this->http->fetchBatch([
