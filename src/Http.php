@@ -24,15 +24,36 @@ class Http
     /** Simple nom du bot, tel qu'il doit apparaître dans les lignes "User-agent:" de robots.txt. */
     public const USER_AGENT_TOKEN = 'OgpnBot';
 
-    /** Nombre d'octets suffisant pour couvrir le <head> de quasi toutes les pages. */
-    public const HTML_HEAD_RANGE_BYTES = 16384;
+    /**
+     * Taille de la fenêtre récupérée pour la page d'accueil, via Range.
+     * 150 Ko plutôt que 16 Ko : comme rien du HTML n'est jamais stocké (voir
+     * notes de conception — seuls les signaux dérivés le sont), il n'y a
+     * aucune contrainte de poids de stockage à ce choix. Le seul coût réel
+     * est le temps de lecture, déjà négligeable pour la quasi-totalité des
+     * sites (le timeout reste le vrai facteur limitant, pas la taille
+     * demandée) — et cette fenêtre plus large augmente les chances
+     * d'attraper les liens sociaux souvent situés en pied de page.
+     */
+    public const HTML_HEAD_RANGE_BYTES = 150000;
+
+    /**
+     * Plafond de taille appliqué à TOUTE requête, quel que soit le fichier —
+     * protection contre une réponse anormalement volumineuse (site mal
+     * configuré, ou pire, une ressource inattendue atteinte par erreur).
+     * Généreux par rapport à la taille réelle d'un robots.txt/RMF normal
+     * (quelques Ko), pour ne jamais couper un fichier légitime même verbeux.
+     */
+    private const MAX_BODY_BYTES = 1_048_576; // 1 Mo
 
     /** Timeouts stricts — un domaine mort ne doit jamais plomber le batch. */
     private const CONNECT_TIMEOUT_S = 2;
-    private const TOTAL_TIMEOUT_S = 4;
+    private const TOTAL_TIMEOUT_S = 3;
 
     /** Nombre de domaines traités en parallèle simultanément (throttle volontaire). */
     private const MAX_CONCURRENT_DOMAINS = 4;
+
+    /** @var array<int, string> Buffer manuel par handle (spl_object_id => contenu accumulé), voir buildCurlHandle(). */
+    private array $buffers = [];
 
     /**
      * Récupère un lot de requêtes en parallèle, plafonné à MAX_CONCURRENT_DOMAINS
@@ -130,11 +151,19 @@ class Http
             $headerLines[] = "{$name}: {$value}";
         }
 
+        $handleId = spl_object_id($curlHandle);
+        $this->buffers[$handleId] = '';
+
         $options = [
-            CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_MAXREDIRS => 3,
+            // Suivi de redirection désactivé volontairement — CURLOPT_FOLLOWLOCATION
+            // ne revérifie jamais l'IP de la cible : un site pourrait rediriger
+            // vers 127.0.0.1, 169.254.x.x ou une plage privée, contournant le
+            // filtrage de DomainSafety qui n'a lieu qu'avant la PREMIÈRE requête.
+            // Un 3xx est donc traité comme "non accessible directement" plutôt
+            // que suivi aveuglément — léger coût en couverture de données,
+            // acceptable face au risque SSRF.
+            CURLOPT_FOLLOWLOCATION => false,
             CURLOPT_CONNECTTIMEOUT => self::CONNECT_TIMEOUT_S,
             CURLOPT_TIMEOUT => $spec->timeoutSeconds ?? self::TOTAL_TIMEOUT_S,
             CURLOPT_USERAGENT => self::USER_AGENT,
@@ -143,6 +172,19 @@ class Http
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
+            CURLOPT_CERTINFO => true, // capture l'émetteur SSL sur la même connexion, gratuit
+            // Remplace CURLOPT_RETURNTRANSFER : on accumule nous-mêmes dans un
+            // buffer borné, et on interrompt le transfert (retour < $length)
+            // dès que MAX_BODY_BYTES est dépassé — protège la mémoire ET le
+            // temps/bande passante, pas seulement l'un des deux.
+            CURLOPT_WRITEFUNCTION => function (\CurlHandle $handle, string $data) use ($handleId): int {
+                $length = strlen($data);
+                if (strlen($this->buffers[$handleId]) >= self::MAX_BODY_BYTES) {
+                    return 0; // fait échouer proprement le transfert (CURLE_WRITE_ERROR)
+                }
+                $this->buffers[$handleId] .= $data;
+                return $length;
+            },
         ];
 
         if ($spec->method === 'POST') {
@@ -161,17 +203,23 @@ class Http
 
     private function collectResult(\CurlHandle $curlHandle, RequestSpec $spec): FetchResult
     {
-        $raw = curl_multi_getcontent($curlHandle);
+        $handleId = spl_object_id($curlHandle);
+        $raw = $this->buffers[$handleId] ?? '';
+        unset($this->buffers[$handleId]); // libère la mémoire, plus jamais réutilisé pour ce handle
+
         $errorNumber = curl_errno($curlHandle);
 
-        if ($errorNumber !== 0 || $raw === null) {
-            return FetchResult::error(curl_error($curlHandle) ?: 'unknown_curl_error');
+        if ($errorNumber !== 0) {
+            return FetchResult::error($spec->url, curl_error($curlHandle) ?: 'unknown_curl_error');
         }
 
         $statusCode = (int) curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
         $headerSize = (int) curl_getinfo($curlHandle, CURLINFO_HEADER_SIZE);
         $headerRaw = substr($raw, 0, $headerSize);
         $body = substr($raw, $headerSize);
+        $primaryIp = curl_getinfo($curlHandle, CURLINFO_PRIMARY_IP);
+        $primaryIp = is_string($primaryIp) && $primaryIp !== '' ? $primaryIp : null;
+        $sslIssuer = $this->extractSslIssuer($curlHandle);
 
         // Un serveur qui honore Range répond 206 (Partial Content). S'il ignore
         // l'entête et renvoie 200 avec le corps entier, on l'a quand même reçu
@@ -186,10 +234,24 @@ class Http
         }
 
         return FetchResult::success(
+            url: $spec->url,
             statusCode: $statusCode,
             body: $body,
             headersRaw: $headerRaw,
             rangeIgnored: $rangeIgnored,
+            primaryIp: $primaryIp,
+            sslIssuer: $sslIssuer,
         );
+    }
+
+    /** Extrait le champ "Issuer" du certificat serveur — null si HTTP (pas de certificat) ou info indisponible. */
+    private function extractSslIssuer(\CurlHandle $curlHandle): ?string
+    {
+        $certInfo = curl_getinfo($curlHandle, CURLINFO_CERTINFO);
+        if (!is_array($certInfo) || !isset($certInfo[0]['Issuer']) || !is_string($certInfo[0]['Issuer'])) {
+            return null;
+        }
+
+        return $certInfo[0]['Issuer'];
     }
 }

@@ -81,7 +81,6 @@ final class RobotsTxt
     /** @param array{allow: string[], disallow: string[]} $group */
     private function evaluate(array $group, string $path): string
     {
-        $bestMatch = null;
         $bestLength = -1;
         $bestType = 'allowed';
 
@@ -89,19 +88,41 @@ final class RobotsTxt
             if ($rule === '') {
                 continue; // "Disallow:" vide = tout autorisé, pas une règle de blocage
             }
-            if (str_starts_with($path, $rule) && strlen($rule) > $bestLength) {
+            if ($this->matchesRule($path, $rule) && strlen($rule) > $bestLength) {
                 $bestLength = strlen($rule);
                 $bestType = 'disallowed';
             }
         }
 
         foreach ($group['allow'] as $rule) {
-            if (str_starts_with($path, $rule) && strlen($rule) > $bestLength) {
+            if ($this->matchesRule($path, $rule) && strlen($rule) > $bestLength) {
                 $bestLength = strlen($rule);
                 $bestType = 'allowed';
             }
         }
 
         return $bestType;
+    }
+
+    /**
+     * Teste si $path correspond à $rule — supporte les wildcards (*, motif
+     * étendu de facto standard) et l'ancre de fin ($). Sans ces caractères
+     * spéciaux, reste un simple préfixe (rapide, cas le plus courant).
+     */
+    private function matchesRule(string $path, string $rule): bool
+    {
+        if (!str_contains($rule, '*') && !str_ends_with($rule, '$')) {
+            return str_starts_with($path, $rule);
+        }
+
+        $hasEndAnchor = str_ends_with($rule, '$');
+        $rulePattern = $hasEndAnchor ? substr($rule, 0, -1) : $rule;
+
+        // Échappe tout sauf '*', qui devient ".*" en regex.
+        $parts = explode('*', $rulePattern);
+        $escapedParts = array_map(static fn (string $part): string => preg_quote($part, '/'), $parts);
+        $regex = '/^' . implode('.*', $escapedParts) . ($hasEndAnchor ? '$' : '') . '/';
+
+        return preg_match($regex, $path) === 1;
     }
 }

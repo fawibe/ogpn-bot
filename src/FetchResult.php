@@ -12,34 +12,46 @@ namespace OgpnBot;
 final class FetchResult
 {
     private function __construct(
+        public readonly string $url,
         public readonly bool $ok,
         public readonly ?int $statusCode,
         public readonly ?string $body,
         public readonly ?string $headersRaw,
         public readonly bool $rangeIgnored,
         public readonly ?string $errorMessage,
+        /** IP réellement contactée pour cette requête — donnée brute, aucune interprétation ici (hébergeur/ASN résolus séparément, voir notes de conception). */
+        public readonly ?string $primaryIp = null,
+        /** Émetteur du certificat SSL, si HTTPS — donnée brute, capturée sur la même connexion, sans requête supplémentaire. */
+        public readonly ?string $sslIssuer = null,
     ) {
     }
 
     public static function success(
+        string $url,
         int $statusCode,
         string $body,
         string $headersRaw,
         bool $rangeIgnored = false,
+        ?string $primaryIp = null,
+        ?string $sslIssuer = null,
     ): self {
         return new self(
+            url: $url,
             ok: true,
             statusCode: $statusCode,
             body: $body,
             headersRaw: $headersRaw,
             rangeIgnored: $rangeIgnored,
             errorMessage: null,
+            primaryIp: $primaryIp,
+            sslIssuer: $sslIssuer,
         );
     }
 
-    public static function error(string $message): self
+    public static function error(string $url, string $message): self
     {
         return new self(
+            url: $url,
             ok: false,
             statusCode: null,
             body: null,
