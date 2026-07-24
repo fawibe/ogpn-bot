@@ -2,14 +2,29 @@ name: Scan horaire
 
 "on":
   schedule:
-    # Toutes les heures, à la minute 0. GitHub Actions ne garantit pas une
-    # exécution pile à l'heure (délai possible en cas de forte charge sur
-    # l'infra GitHub), mais l'espacement d'une heure entre deux runs est
-    # respecté.
-    - cron: '0 * * * *'
+    # Toutes les 15 minutes. GitHub Actions ne garantit pas une exécution
+    # pile à l'heure (délai possible en cas de forte charge sur l'infra
+    # GitHub), mais l'espacement visé est respecté en moyenne.
+    #
+    # Débit : passé de 300 domaines/heure (v18-v20) à 300 domaines/15min,
+    # soit x4 — nécessaire vu le volume total de domaines à couvrir (voir
+    # discussion débit/latence dans l'historique du projet). À surveiller :
+    # si le taux de domaines "injoignable" augmente sensiblement après ce
+    # changement, ça peut indiquer que MAX_CONCURRENT_DOMAINS (voir Http.php)
+    # est devenu trop agressif pour certains domaines cibles, pas forcément
+    # un souci côté GitHub.
+    - cron: '*/15 * * * *'
   # Permet aussi un déclenchement manuel depuis l'onglet Actions, pratique
-  # pour tester sans attendre la prochaine heure pile.
+  # pour tester sans attendre la prochaine échéance.
   workflow_dispatch: {}
+
+# Empêche deux runs de tourner en même temps si un run dépasse 15 minutes
+# et chevauche le déclenchement suivant. Sans ça, scan-ingest.php rejetterait
+# le second envoi (verrou déjà pris, voir storage/locks/), ce qui ferait
+# échouer inutilement le run — mieux vaut le mettre en attente proprement.
+concurrency:
+  group: ogpn-scan
+  cancel-in-progress: false
 
 jobs:
   scan:
@@ -31,4 +46,10 @@ jobs:
         env:
           OGPN_API_URL: ${{ secrets.OGPN_API_URL }}
           OGPN_API_TOKEN: ${{ secrets.OGPN_API_TOKEN }}
+          # Optionnel — variable de dépôt (pas un secret, rien de sensible),
+          # Settings > Secrets and variables > Actions > onglet Variables.
+          # Ex. "fr,be,lu,ch,mc" pour prioriser les domaines francophones
+          # sans jamais exclure le reste. Laisser non défini = comportement
+          # inchangé (ordre chronologique pur, tous TLD confondus).
+          OGPN_PRIORITY_TLDS: ${{ vars.OGPN_PRIORITY_TLDS }}
         run: php bin/scan.php
