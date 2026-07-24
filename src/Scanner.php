@@ -166,6 +166,7 @@ final class Scanner
                     robotsBlocksEverything: true,
                     robotsStatus: 'robots_blocked',
                     aiBotPolicy: $this->aiBotPolicyFromRobots($robotsInfo['policy']),
+                    unknownAiBotGroups: $this->unknownAiBotGroupsFromRobots($robotsInfo['policy']),
                     filePresence: [],
                     fileMisplaced: [],
                     fileConflict: [],
@@ -454,6 +455,7 @@ final class Scanner
 
         $robotsPolicy = $robotsInfo['policy'] ?? null;
         $aiBotPolicy = $robotsPolicy instanceof RobotsTxt ? $this->aiBotPolicyFromRobots($robotsPolicy) : [];
+        $unknownAiBotGroups = $robotsPolicy instanceof RobotsTxt ? $this->unknownAiBotGroupsFromRobots($robotsPolicy) : [];
 
         [$defaultLanguage, $alternateLanguages] = $this->extractLanguages($analysisHtml);
         $tldProfile = TldRegistry::profileForDomain($domain);
@@ -495,6 +497,7 @@ final class Scanner
             robotsBlocksEverything: false,
             robotsStatus: $robotsInfo['status'],
             aiBotPolicy: $aiBotPolicy,
+            unknownAiBotGroups: $unknownAiBotGroups,
             filePresence: $filePresence,
             fileMisplaced: $fileMisplaced,
             fileConflict: $fileConflict,
@@ -1335,6 +1338,33 @@ final class Scanner
         }
 
         return $result;
+    }
+
+    /**
+     * User-agents déclarés dans robots.txt qui ne correspondent à aucune
+     * entrée connue de Config::AI_BOTS ni à un crawler classique connu
+     * (Config::KNOWN_NON_AI_USER_AGENTS). Ne préjuge pas qu'il s'agisse d'un
+     * bot IA — juste un candidat à qualifier manuellement, au même esprit que
+     * unknown_dependencies pour les fournisseurs tiers.
+     *
+     * @return string[]
+     */
+    private function unknownAiBotGroupsFromRobots(RobotsTxt $policy): array
+    {
+        $known = array_map(strtolower(...), Config::AI_BOTS);
+        $noise = Config::KNOWN_NON_AI_USER_AGENTS;
+
+        $unknown = [];
+        foreach ($policy->declaredUserAgents() as $agent) {
+            if (in_array($agent, $known, true) || in_array($agent, $noise, true)) {
+                continue;
+            }
+            $unknown[] = $agent;
+        }
+
+        sort($unknown);
+
+        return $unknown;
     }
 
     /** @return array{0: ?string, 1: string[]} [langue par défaut, langues alternatives] */

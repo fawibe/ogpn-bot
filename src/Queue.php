@@ -97,6 +97,7 @@ final class Queue
             'robots_status' => $r->robotsStatus,
             'robots_blocks_everything' => $r->robotsBlocksEverything,
             'ai_bot_policy' => $r->aiBotPolicy,
+            'unknown_ai_bot_groups' => $r->unknownAiBotGroups,
             'file_presence' => $r->filePresence,
             'file_misplaced' => $r->fileMisplaced,
             'file_conflict' => $r->fileConflict,

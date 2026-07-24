@@ -82,6 +82,8 @@ final class ScanResult
         /** @var string[] Signaux positifs ayant contribué à la sous-catégorie. */
         public readonly array $categoryTier2Signals = [],
         public readonly ?string $error = null,
+        /** @var string[] User-agents déclarés dans robots.txt hors Config::AI_BOTS et hors crawlers classiques connus (Config::KNOWN_NON_AI_USER_AGENTS) — candidats à qualifier manuellement, jamais un verdict. */
+        public readonly array $unknownAiBotGroups = [],
     ) {
     }
 }

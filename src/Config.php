@@ -40,6 +40,30 @@ final class Config
     ];
 
     /**
+     * User-agents fréquents dans robots.txt qui NE sont PAS des bots IA —
+     * moteurs de recherche classiques, outils SEO, aperçus de liens sociaux,
+     * wildcard générique. Exclus de la détection "bot IA inconnu" pour que
+     * cette liste reste exploitable (des dizaines de sites déclarent des
+     * règles pour Googlebot/Bingbot/AhrefsBot sans que ce soit un signal
+     * utile pour ce projet). Volontairement non exhaustive, à enrichir au
+     * même titre qu'AI_BOTS si du bruit récurrent apparaît.
+     */
+    public const KNOWN_NON_AI_USER_AGENTS = [
+        '*',
+        'googlebot', 'googlebot-image', 'googlebot-news', 'googlebot-video', 'adsbot-google', 'mediapartners-google',
+        'bingbot', 'msnbot', 'adidxbot',
+        'yandexbot', 'yandex',
+        'baiduspider',
+        'duckduckbot', 'duckduckgo-favicons-bot',
+        'slurp', // Yahoo
+        'sogou',
+        'ahrefsbot', 'semrushbot', 'mj12bot', 'dotbot', 'seznambot', 'blexbot', 'petalbot',
+        'facebookexternalhit', 'twitterbot', 'linkedinbot', 'pinterestbot', 'whatsapp', 'telegrambot', 'discordbot',
+        'applebot', // distinct d'Applebot-Extended, qui LUI est dans AI_BOTS
+        'archive.org_bot', 'ia_archiver',
+    ];
+
+    /**
      * Groupe A — convention "racine uniquement" : aucune norme well-known
      * n'existe pour ces fichiers, chercher dans .well-known/ n'aurait pas de
      * sens normatif.

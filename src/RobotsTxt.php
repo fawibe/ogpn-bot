@@ -78,6 +78,19 @@ final class RobotsTxt
         return 'not_mentioned';
     }
 
+    /**
+     * Tous les groupes User-agent effectivement déclarés dans ce robots.txt,
+     * en minuscules, wildcard '*' inclus s'il est présent. Sert à repérer les
+     * bots qui font l'objet d'une règle explicite mais qui ne figurent pas
+     * (encore) dans Config::AI_BOTS — voir Scanner::unknownAiBotGroupsFromRobots().
+     *
+     * @return string[]
+     */
+    public function declaredUserAgents(): array
+    {
+        return array_keys($this->groups);
+    }
+
     /** @param array{allow: string[], disallow: string[]} $group */
     private function evaluate(array $group, string $path): string
     {
